@@ -1,0 +1,133 @@
+---
+
+#completed
+- name: "HIGH | Remote access to the IIS 10.0 web server must follow access policy or work in conjunction with enterprise tools designed to enforce policy requirements."
+  debug:
+    msg: "When performing remote administrative tasks, a protocol or service that encrypts the communication channel must be used."
+  tags:
+    - manual_check
+    - IIST-SV-000141
+    - SV-218811r561041_rule
+    - V-218811
+    - high
+- name: "V-218811"
+  debug:
+    msg: "Manual review required"
+
+
+#completed
+- name: "HIGH | All IIS 10.0 web server sample code, example applications, and tutorials must be removed from a production IIS 10.0 server."
+  debug:
+    msg: "Navigate to the following folders:
+          inetpub\
+          Program Files>ommon Files>ystem>sadc
+          Program Files (x86)>ommon Files>ystem>sadc
+          If the folder or sub-folders contain any executable sample code, example applications, or tutorials which are not explicitly used by a production website, this is a finding."
+  tags:
+    - manual_check
+    - IIST-SV-000120
+    - SV-218795r561041_rule
+    - V-218795
+    - high
+- name: "V-218795"
+  debug:
+    msg: "Manual review required"
+
+
+#completed
+- name: "HIGH | All accounts installed with the IIS 10.0 web server software and tools must have passwords assigned and default passwords changed."
+  debug:
+    msg: "If any local accounts are present and used by IIS 10.0, verify with System Administrator that default passwords have been changed.
+          If passwords have not been changed from the default, this is a finding."
+  tags:
+    - manual_check
+    - IIST-SV-000156
+    - SV-218823r561041_rule
+    - V-218823
+    - high
+- name: "V-218823"
+  debug:
+    msg: "Develop an internal process for changing passwords on a regular basis."
+
+# completed no loop cipher_check
+- name: "Turn off DisabledByDefault for TLS 1.2"
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server
+          name: DisabledByDefault
+          type: dword
+          data: 0
+          state: present
+
+  #tags:
+  #  - high
+- name: "Enable TLS 1.0 DisabledByDefault"
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+          name: DisabledByDefault
+          type: dword
+          data: 1
+          state: present 
+- name: "Disable TLS 1.0 from server"
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+          name: Enabled
+          type: dword
+          data: 0
+          state: present
+- name: "Enable TLS 1.1 DisabledByDefault"
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+          name: DisabledByDefault
+          type: dword
+          data: 1
+          state: present
+- name: "Disable TLS 1.1"
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+          name: Enabled
+          type: dword
+          data: 0
+          state: present
+- name: "Enable DisabledByDefault for SSL 2.0"
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server
+          name: DisabledByDefault
+          type: dword
+          data: 1
+          state: present
+- name: "Disable SSL 2.0"     
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server
+          name: Enabled
+          type: dword
+          data: 0
+          state: present
+- name: "DisabledByDefault for SSL 3.0" 
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+          name: DisabledByDefault
+          type: dword
+          data: 1
+          state: present
+- name: "Disable SSL 3.0"
+  win_regedit:
+          path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+          name: Enabled
+          type: dword
+          data: 0
+          state: present
+
+#completed
+- name: "HIGH | Ensure non-administrators are not allowed access to the directory tree, the shell, or other operating system functions and utilities."
+  debug:
+    msg: "All non-administrator access to shell scripts and operating system functions must be mission essential and documented."
+
+  tags:
+    - manual_check
+    - IIST-SV-000131
+    - SV-218802r561041_rule
+    - V-218802
+    - high
+- name: "V-218802"
+  debug:
+    msg: "Manual review of accounts required"

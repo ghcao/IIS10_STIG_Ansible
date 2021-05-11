@@ -1,0 +1,637 @@
+---
+
+#completed
+- name: "MEDIUM | An IIS Server configured to be a SMTP relay must require authentication."
+  debug:
+    msg: "DocumentRule"
+    msg: "Configure the relay server with a specific allowed IP address, from the same network as the relay, and implement TLS."
+  tags:
+    - manual_check
+    - IIST-SV-000160
+    - SV-228572r561041_rule
+    - V-228572
+    - medium
+- name: "V-228572"
+  debug:
+    msg: "Interview the System Administrator about the role of the IIS 10.0 web server."
+
+# # incomplete skip
+# - name: "MEDIUM | The IIS 10.0 web server must produce log records containing sufficient information to establish the identity of any user/subject or process associated with an event."
+#   debug:
+#     msg: "IisLoggingRule | xIisLogging"
+#     msg: "Web server logging capability is critical for accurate forensic analysis."
+#       # review
+#       win_dsc:
+#         resource_name: xIisLogging
+#         LogPath: "%SystemDrive%\\inetpub\\logs\\LogFiles"
+#         LogFlags:
+#           - 'Date'
+#           - 'Time'
+#           - 'ClientIP'
+#           - 'ServerPort'
+#           - 'Method'
+#         LogFormat: W3C
+#         LogCustomFields:
+#           - LogFieldName: x-forwarded-for
+#             SourceName: X-Forwarded-For
+#             SourceType: RequestHeader
+#   tags:
+#     - IIST-SV-000111
+#     - SV-218789r561041_rule
+#     - V-218789
+#     - medium
+# - name: "V-218789"
+#   debug:
+#     msg: "Web server logging capability is critical for accurate forensic analysis."
+
+# # incomplete skipping
+# - name: "MEDIUM | The IIS 10.0 web server must produce log records that contain sufficient information to establish the outcome (success or failure) of IIS 10.0 web server events."
+#   debug:
+#     msg: "IisLoggingRule | xIisLogging"
+#     msg: "Web server logging capability is critical for accurate forensic analysis."
+#       # review
+#       win_dsc:
+#         resource_name: xIisLogging
+#         LogPath: "%SystemDrive%\\inetpub\\logs\\LogFiles"
+#         LogFlags:
+#           - 'Date'
+#           - 'Time'
+#         LogFormat: W3C
+#         LogCustomFields:
+#           - LogFieldName: x-forwarded-for
+#             SourceName: X-Forwarded-For
+#             SourceType: RequestHeader
+
+#   tags:
+#     - IIST-SV-000110
+#     - SV-218788r561041_rule
+#     - V-218788
+#     - medium
+# - name: "V-218788"
+#   debug:
+#     msg: "Web server logging capability is critical for accurate forensic analysis."
+
+#completed
+- name: "MEDIUM | An IIS 10.0 web server behind a load balancer or proxy server must produce log records containing the source client IP and destination information."
+  debug:
+    msg: "ManualRule"
+    msg: "Web server logging capability is critical for accurate forensic analysis. This rule must be reviewed manually on the server to validate findings."
+  tags:
+    - manual_check
+    - IIST-SV-000109
+    - SV-218787r561041_rule
+    - V-218787
+    - medium
+- name: "V-218787"
+  debug:
+    msg: "Manual review required"
+
+# # incomplete
+# - name: "MEDIUM | Both the log file and Event Tracing for Windows (ETW) for the IIS 10.0 web server must be enabled."
+#   Comment: > 
+#   debug
+#     msg "IisLoggingRule | xIisLogging"
+#     msg "This option gives the administrator the ability to use standard query tools, or create custom tools, for viewing real-time logging information in ETW."
+#     # review
+#   win_dsc:
+#     resource_name: xWebsite
+#     Ensure: Present
+#     Name: "Both log file and ETW event"
+#     State: Present
+#     PhysicalPath: %SystemDrive%:\inetpub\wwwroot
+#   tags:
+#     - IIST-SV-000103
+#     - SV-218786r561041_rule
+#     - V-218786
+#     - medium
+# - name: "V-218786"
+#   debug:
+#     msg: "If the "Both log file and ETW event" radio button is not selected, this is a finding."
+
+# progress
+# - name: "MEDIUM | The enhanced logging for the IIS 10.0 web server must be enabled and capture all user and web server events."
+#   debug:
+#     msg: "IisLoggingRule | xIISLogging"
+#     msg: "Configure and obtain suffient logging in case of service failure, malicious attack or other specific needs."
+#     msg: "Log record content that may be necessary to satisfy the requirement of this control includes, but is not limited to, time stamps, source and destination IP addresses, user/process identifiers, event descriptions, application-specific events, success/fail indications, file names involved, access control, or flow control rules invoked."
+#             # Open the IIS 10.0 Manager.
+#             # Click the IIS 10.0 web server name.
+#             # Click the "Logging" icon.
+#             # Under Format select "W3C".
+#             # Click "Select Fields", verify at a minimum the following fields are checked: Date, Time, Client IP Address, User Name, Method, URI Query, Protocol Status, and Referrer.
+#             # If not, this is a finding.
+#     # review needed
+#     win_dsc:
+#     resource_name: xWebsite
+#     Ensure: Present
+#     Name: "Logging"
+#     Name: "Format"
+#     State: Present
+#     PhysicalPath: %SystemDrive%:\inetpub\wwwroot\websites\WIN-46E1EMTEUH3
+#   tags:
+#     - IIST-SV-000102
+#     - SV-218785r561041_rule
+#     - V-228572
+#     - medium
+# - name: "V-218785"
+#   debug:
+#     msg: "IIS log directory: %SystemDrive%\inetpub\logs\LogFiles"
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server remote authors or content providers must only use secure encrypted logons and connections to upload web server content."
+  debug:
+    msg: "DocumentRule"
+    msg: "Logging onto a web server remotely using an unencrypted protocol or service when performing updates and maintenance is a major risk."
+  
+    # If web administration is performed at the console, this check is NA.
+    # If web administration is performed remotely the following checks will apply--
+    # If administration of the server is performed remotely, it will only be performed securely by system administrators.
+    # If website administration or web application administration has been delegated, those users will be documented and approved by the ISSO.
+    # Remote administration must be in compliance with any requirements contained within the Windows Server STIGs, and any applicable Network STIGs.
+    # Remote administration of any kind will be restricted to documented and authorized personnel.
+    # All users performing remote administration must be authenticated.
+    # All remote sessions will be encrypted and utilize FIPS 140-2-approved protocols.
+    # FIPS 140-2-approved TLS versions include TLS V1.1 or greater.
+    # Review with site management how remote administration is configured on the website, if applicable.
+    # If remote management meets the criteria listed above, this is not a finding.
+    # If remote management is utilized and does not meet the criteria listed above, this is a finding.
+  tags:
+    - manual_check
+    - IIST-SV-000100
+    - SV-218784r561041_rule
+    - V-218784
+    - medium
+- name: "V-218784"
+  debug:
+    msg: "Ensure the web server administration is only performed over a secure path."
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must not be running on a system providing any other role."
+  debug:
+    msg: "DocumentRule"
+    msg: "Web servers provide numerous processes, features, and functionalities that utilize TCP/IP ports."
+
+    # Review programs installed on the OS.
+    # Open Control Panel.
+    # Open Programs and Features.
+    # The following programs may be installed without any additional documentation--
+    # Administration Pack for IIS
+    # IIS Search Engine Optimization Toolkit
+    # Microsoft .NET Framework version 3.5 SP1 or greater
+    # Microsoft Web Platform Installer version 3.x or greater
+    # Virtual Machine Additions
+    # Review the installed programs, if any programs are installed other than those listed above, this is a finding.
+    # Note... If additional software is needed and has supporting documentation signed by the ISSO, this is not a finding.
+  tags:
+    - manual_check
+    - IIST-SV-000148
+    - SV-218817r561041_rule
+    - V-218817
+    - medium
+- name: "V-218817"
+  debug:
+    msg: "Remove all unapproved programs and roles from the production web server."
+
+#completed
+- name: "MEDIUM | Access to web administration tools must be restricted to the web manager and the web managers designees."
+  debug:
+    msg: "DocumentRule"
+    msg: "To limit changes to the web server and limit exposure to any adverse effects from the changes, files such as the web server application files, libraries, and configuration files must have permissions and ownership set properly to only allow privileged users access."
+    
+    # Right-click "InetMgr.exe", then click "Properties" from the "Context" menu.
+    # Select the "Security" tab.
+    # Review the groups and user names.
+    # The following accounts may have Full control privileges--
+    # TrustedInstaller
+    # Web Managers
+    # Web Manager designees
+    # CREATOR OWNER-- Full Control, Subfolders and files only
+    # The following accounts may have read and execute, or read permissions--
+    # Non Web Manager Administrators
+    # ALL APPLICATION PACKAGES (built-in security group)
+    # ALL RESTRICTED APPLICATION PACKAGES (built-in security group)
+    # SYSTEM
+    # Users
+    # Specific users may be granted read and execute and read permissions.
+    # Compare the local documentation authorizing specific users, against the users observed when reviewing the groups and users.
+    # If any other access is observed, this is a finding.
+  tags:
+    - manual_check
+    - IIST-SV-000147
+    - SV-218816r561041_rule
+    - V-218816
+    - medium
+- name: "V-218816"
+  debug:
+    msg: "Remove all unapproved programs and roles from the production web server."
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must use a logging mechanism configured to allocate log record storage capacity large enough to accommodate the logging requirements of the IIS 10.0 web server."
+  debug:
+    msg: "DocumentRule"
+    msg: "To ensure the logging mechanism used by the web server has sufficient storage capacity in which to write the logs, the logging mechanism must be able to allocate log record storage capacity."
+
+    # Open the IIS 10.0 Manager.
+    # Click the IIS 10.0 web server name.
+    # Under "IIS" double-click the "Logging" icon.
+    # In the "Logging" configuration box, determine the "Directory:" to which the "W3C" logging is being written.
+    # Confirm with the System Administrator that the designated log path is of sufficient size to maintain the logging.
+    # Under "Log File Rollover", verify "Do not create new log files" is not selected.
+    # Verify a schedule is configured to rollover log files on a regular basis.
+    # Consult with the System Administrator to determine if there is a documented process for moving the log files off of the IIS 10.0 web server to another logging device.
+    # If the designated logging path device is not of sufficient space to maintain all log files, and there is not a schedule to rollover files on a regular basis, this is a finding.
+  tags:
+    - manual_check
+    - IIST-SV-000145
+    - SV-218815r561041_rule
+    - V-218815
+    - medium
+- name: "V-218815"
+  debug:
+    msg: "Configure a schedule to rollover log files on a regular basis."
+
+# # progress
+# - name: "MEDIUM | IIS 10.0 web server system files must conform to minimum file permission requirements."
+#   debug:
+#     msg: "PermissionRule | NTFSAccessEntry"
+#     msg: "This check verifies the key web server system configuration files are owned by the SA or the web administrator controlled account. "
+#     comment: >
+#       Open Explorer and navigate to the inetpub directory.
+#       Right-click "inetpub" and select "Properties".
+#       Click the "Security" tab.
+#       Set the following permissions--
+#       SYSTEM-- Full control
+#       Administrators-- Full control
+#       TrustedInstaller-- Full control
+#       ALL APPLICATION PACKAGES (built-in security group)-- Read and execute
+#       Users-- Read and execute, list folder contents
+#       CREATOR OWNER-- special permissions to subkeys
+#     # this block only applies to admin user names, and not the roles of user.
+#     # need to review further on how to apply to admin roles instead of admin users.
+#     win_acl:
+#     path: C:\inetpub\wwwroot\
+#     user: Administrator
+#     rights: FullControl
+#     type: allow
+#     state: present
+#     inherit: ContainerInherit, ObjectInherit
+#     propagation: 'None'
+
+#   tags:
+#     - IIST-SV-000144
+#     - SV-218814r561041_rule
+#     - V-218814
+#     - medium
+# - name: "V-218814"
+#   debug:
+#     msg: "Admin users/roles permissions to system files"
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must provide the capability to immediately disconnect or disable remote access to the hosted applications."
+  debug:
+    msg: "DocumentRule"
+    msg: "During an attack on the web server or any of the hosted applications, the system administrator may need to disconnect or disable access by users to stop the attack."
+    
+    # Prepare documented procedures for shutting down an IIS 10.0 website in the event of an attack.
+    # The procedure should, at a minimum, provide the following steps--
+    # Determine the respective website for the application at risk of an attack.
+    # Access the IIS 10.0 web server IIS Manager.
+    # Select the respective website.
+    # In the "Actions" pane, under "Manage Website", click "Stop".
+    # If necessary, stop all websites.
+    # If necessary, stop the IIS 10.0 web server by selecting the web server in the IIS Manager.
+    # In the "Actions" pane, under "Manage Server", click "Stop".  tags--
+  tags:
+    - IIST-SV-000143
+    - SV-218813r561041_rule
+    - V-218813
+    - medium
+- name: "V-218813"
+  debug:
+    msg: "Configure a schedule to rollover log files on a regular basis."
+
+
+# completed
+- name: "MEDIUM | The IIS 10.0 web server must restrict inbound connections from non-secure zones."
+  debug:
+    msg: "ManualRule"
+
+    # Open the IIS 10.0 Manager.
+    # Click the IIS 10.0 web server name.
+    # Under "Management", double-click "Management Service".
+    # Stop the Web Management Service under the "Actions" pane.
+    # Configure only known, secure IP ranges as "Allow".
+    # Select "Apply" in "Actions" pane.
+    # Restart the Web Management Service under the "Actions" pane.
+  tags:
+    - IIST-SV-000142
+    - SV-218812r561041_rule
+    - V-218812
+    - medium
+- name: "V-218812"
+  debug:
+    msg: "Remote access to the web server is any access that communicates through an external, non-organization-controlled network."
+
+# complete, no automation
+- name: "MEDIUM | Warning and error messages displayed to clients must be modified to minimize the identity of the IIS 10.0 web server, patches, loaded modules, and directory paths."
+    # Open the IIS 10.0 Manager.
+    # Click the IIS 10.0 web server name.
+    # Double-click the "Error Pages" icon.
+    # Click any error message, and then click "Edit Feature Setting" from the "Actions" Pane. This will apply to all error messages.
+    # If the feature setting is not set to “Detailed errors for local requests and custom error pages for remote requests”, this is a finding.  
+    
+    #automation
+    # Set-WebConfigurationProperty: 
+    # physical_path: \system.webServer\httpErrors
+    # parameters: Error Pages:C:\system.webServer\httpErrors
+    # data: Error Responses
+    # state: DetailedLocalOnly
+  debug:
+    msg: "manual check"
+  tags:
+    - IIST-SV-000140
+    - SV-218810r561041_rule
+    - V-218810
+    - medium
+- name: "V-218810"
+  debug:
+    msg: "HTTP error pages contain information that could enable an attacker to gain access to an information system."
+    msg: "By default, http error codes are set to 'detailed local only' by default on Windows 2019"
+
+
+# completed
+- name: "MEDIUM | The Internet Printing Protocol (IPP) must be disabled on the IIS 10.0 web server."
+  debug:
+    msg: "ManualRule"
+    
+    # Click “Start”, click “Administrative Tools”, and then click “Server Manager”.
+    # Expand the roles node, right-click “Print Services”, and then select “Remove Roles Services”.
+    # If the Internet Printing option is checked, clear the check box, click “Next”, and then click “Remove” to complete the wizard.
+  tags:
+    - IIST-SV-000149
+    - SV-218818r561041_rule
+    - V-218818
+    - medium
+- name: "V-218818"
+  debug:
+    msg: "This privileged access could allow remote code execution by increasing the web servers attack surface. Additionally, since IPP does not support SSL, it is considered a risk and will not be deployed."
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must be tuned to handle the operational requirements of the hosted application."
+  debug:
+    msg: "DocumentRule"
+    msg: "If the IIS 10.0 web server is not hosting any applications, this is Not Applicable."
+
+# If the IIS 10.0 web server is hosting applications, consult with the System Administrator to determine risk analysis performed when the application was written and deployed to the IIS 10.0 web server.
+
+# Obtain documentation on the configuration.
+
+# Verify, at a minimum, the following tuning settings in the registry.
+
+# Access the IIS 10.0 web server registry.
+
+# Verify the following keys are present and configured. The required setting depends upon the requirements of the application.
+
+# Recommended settings are not provided as these settings must be explicitly configured to show a conscientious tuning has been made.
+
+# Navigate to HKLM\SYSTEM\CurrentControlSet\Services\HTTP\Parameters\
+# "URIEnableCache"
+# "UriMaxUriBytes"
+# "UriScavengerPeriod"
+
+# If explicit settings are not configured for "URIEnableCache", "UriMaxUriBytes" and "UriScavengerPeriod", this is a finding.
+  tags:
+    - IIST-SV-000151
+    - SV-218819r561041_rule
+    - V-218819
+    - medium
+- name: "V-218819"
+  debug:
+    msg: "To avoid a DoS, the web server must be tuned to handle the expected traffic for the hosted applications."
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must be tuned to handle the operational requirements of the hosted application."
+  debug:
+    msg: "DocumentRule"
+    msg: "If the Print Services role and the Internet Printing role are not installed, this check is Not Applicable."
+
+          # Navigate to the following directory:
+
+          # %windir%\web\printers
+
+          # If this folder exists, this is a finding.
+
+          # Determine whether Internet Printing is enabled:
+
+          # Click “Start”, click “Administrative Tools”, and then click “Server Manager”.
+
+          # Expand the roles node, right-click “Print Services”, and then select “Remove Roles Services”.
+
+          # If the Internet Printing option is enabled, this is a finding."
+  tags:
+    - IIST-SV-000149
+    - SV-218818r561041_rule
+    - V-218818
+    - medium
+- name: "V-218818"
+  debug:
+    msg: "To avoid a DoS, the web server must be tuned to handle the expected traffic for the hosted applications."
+
+
+# # incomplete
+# - name: "MEDIUM | The IIS 10.0 web server must have Multipurpose Internet Mail Extensions (MIME) that invoke OS shell programs disabled."
+#   # Set-WebConfigurationProperty: 
+#     # physical_path: \system.webServer\mimeType
+#     # parameters: Error Pages:C:\system.webServer\mimeType
+
+
+#   tags:
+#     - IIST-SV-000124
+#     - SV-218798r561041_rule
+#     - V-218798
+#     - medium
+# - name: "V-218798"
+#   debug:
+#     msg: "Controlling what a user of a hosted application can access is part of the security posture of the web server."
+
+# Manual check, couldn't find much info on disabling this option automatically.
+- name: "MEDIUM | The IIS 10.0 web server must have Web Distributed Authoring and Versioning (WebDAV) disabled."
+  debug: 
+    msg: "WebDAV Authoring Rules on IIS is disabled by default on Windows 2019 IIS" 
+# ansible.windows.win_feature:
+  #   name: NET-Framework-Core
+  #   source: C:\Program Files\ProGet\Web
+  #   data: 
+  #   state: present
+
+    # Open the IIS 10.0 Manager.
+
+    # Click the IIS 10.0 web server name.
+
+    # Review the features listed under the “IIS" section.
+
+    # If the "WebDAV Authoring Rules" icon exists, this is a finding.
+
+    # Access Server Manager on the IIS 10.0 web server.
+
+    # Click the IIS 10.0 web server name.
+
+    # Click on "Manage".
+
+    # Select "Add Roles and Features".
+
+    # Click "Next" in the "Before you begin" dialog box.
+
+    # Select "Role-based or feature-based installation" on the "Installation Type" dialog box and click "Next".
+
+    # Select the IIS 10.0 web server in the "Server Selection" dialog box.
+
+    # From the "Windows Features" dialog box, navigate to "World Wide Web Services" >> "Common HTTP Features".
+
+    # De-select "WebDAV Publishing", and click "Next" to complete removing the WebDAV Publishing feature from the IIS 10.0 web server.
+
+  tags:
+    - IIST-SV-000125
+    - SV-218799r561041_rule
+    - V-218799
+    - medium
+- name: "V-218799"
+  debug:
+    msg: "WebDAV is not widely used and has serious security concerns because it may allow clients to modify unauthorized files on the web server."
+
+#completed
+- name: "MEDIUM | The log information from the IIS 10.0 web server must be protected from unauthorized modification or deletion."
+  debug:
+    msg: "ManualRule"
+    msg: "Failure to protect log files could enable an attacker to modify the log file data or falsify events to mask an attacker's activity. Satisfies: SRG-APP-000120-WSR-000070, SRG-APP-000118-WSR-000068, SRG-APP-000118-WSR-000069"
+
+      # This check does not apply to service account IDs utilized by automated services necessary to process, manage, and store log files.
+      # Open the IIS 10.0 Manager.
+      # Click the IIS 10.0 web server name.
+      # Click the "Logging" icon.
+      # Click "Browse" and navigate to the directory where the log files are stored.
+      # Right-click the log file directory to review.
+      # Click "Properties".
+      # Click the "Security" tab.
+      # Verify log file access is restricted as follows. Otherwise, this is a finding.
+      # SYSTEM - Full Control
+      # Administrators - Full Control
+
+  tags:
+    - IIST-SV-000115
+    - SV-218790r561041_rule
+    - V-218790
+    - medium
+- name: "V-218790"
+  debug:
+    msg: "ManualRule"
+
+#completed
+- name: "MEDIUM | The log data and records from the IIS 10.0 web server must be backed up onto a different system or media."
+  debug:
+    msg: "ManualRule"
+    msg: "Protection of log data includes ensuring log data is not accidentally lost or deleted. Backing up log records to an unrelated system, or onto separate media than the system on which the web server is running, helps to ensure the log records will be retained in the event of a catastrophic system failure."
+
+      # Open the IIS 10.0 Manager.
+
+      # Click the IIS 10.0 server name.
+
+      # Click the "Logging" icon.
+
+      # Under "Log File" >> "Directory" obtain the path of the log file.
+
+      # Once all locations are known, consult with the System Administrator to review the server's backup procedure and policy.
+
+      # Verify the paths of all log files are part of the system backup.
+      # Verify log files are backed up to an unrelated system or onto separate media on which the system the web server is running.
+
+      # If the paths of all log files are not part of the system backup and/or not backed up to a separate media, this is a finding.
+
+  tags:
+    - IIST-SV-000116
+    - SV-218791r561041_rule
+    - V-218791
+    - medium
+- name: "V-218791"
+  debug:
+    msg: "If the paths of all log files are not part of the system backup and/or not backed up to a separate media, this is a finding."
+
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must not perform user management for hosted applications."
+  debug:
+    msg: "DocumentRule"
+    msg: "User management and authentication can be an essential part of any application hosted by the web server."
+    msg:
+      "Interview the System Administrator about the role of the IIS 10.0 web server.
+
+        If the IIS 10.0 web server is hosting an application, have the SA provide supporting documentation on how the application's user management is accomplished outside of the IIS 10.0 web server.
+
+        If the IIS 10.0 web server is not hosting an application, this is Not Applicable.
+
+        If the IIS web server is performing user management for hosted applications, this is a finding.
+
+        If the IIS 10.0 web server is hosting an application and the SA cannot provide supporting documentation on how the application's user management is accomplished outside of the IIS 10.0 web server, this is a finding."
+  tags:
+    - IIST-SV-000117
+    - SV-218792r561041_rule
+    - V-218792
+    - medium
+- name: "V-218792"
+  debug:
+    msg: "Reconfigure any hosted applications on the IIS 10.0 web server to perform user management outside the IIS 10.0 web server. 
+    Document how the hosted application user management is accomplished."
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must only contain functions necessary for operation."
+  debug:
+    msg: "DocumentRule"
+    msg: "A web server can provide many features, services, and processes. Some of these may be deemed unnecessary or too unsecure to run on a production DoD system."
+    msg:
+      "Click “Start”.
+
+        Open Control Panel.
+
+        Click “Programs”.
+
+        Click “Programs and Features”.
+
+        Review the installed programs. If any programs are installed other than those required for the IIS 10.0 web services, this is a finding.
+
+        Note: If additional software is needed, supporting documentation must be signed by the ISSO."
+  tags:
+    - IIST-SV-000118
+    - SV-218793r561041_rule
+    - V-218793
+    - medium
+- name: "V-218793"
+  debug:
+    msg: "Remove all unapproved programs and roles from the production IIS 10.0 web server."
+
+#completed
+- name: "MEDIUM | The IIS 10.0 web server must only contain functions necessary for operation."
+  debug:
+    msg: "ManualRule"
+    msg: "A web server should be primarily a web server or a proxy server but not both, for the same reasons that other multi-use servers are not recommended."
+    msg:
+      "Open the IIS 10.0 Manager and follow the tasks in comments of code" 
+
+        # Under the "Connections" pane on the left side of the management console, select the IIS 10.0 web server.
+
+        # If, under the IIS installed features, "Application Request Routing Cache" is not present, this is not a finding.
+
+        # If, under the IIS installed features, "Application Request Routing Cache" is present, double-click the icon to open the feature.
+
+        # From the right "Actions" pane, under "Proxy", select "Server Proxy Settings...".
+
+        # In the "Application Request Routing" settings window, verify whether "Enable proxy" is selected.
+
+        # If “Enable proxy" is selected under the "Application Request Routing" settings, this is a finding."
+  tags:
+    - IIST-SV-000119
+    - SV-218794r561041_rule
+    - V-218794
+    - medium
+- name: "V-218794"
+  debug:
+    msg: "Scanning for web servers that also proxy requests into an otherwise protected network is a common attack, making the attack anonymous."

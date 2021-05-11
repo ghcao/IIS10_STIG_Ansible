@@ -1,0 +1,28 @@
+---
+#completed
+    - name: "HIGH | The IIS 10.0 web server must enable HTTP Strict Transport Security (HSTS)."
+      debug:
+        msg: "HTTP Strict Transport Security (HSTS) ensures browsers always connect to a website over TLS. "
+      
+              
+              #can also run the following commands via CMD, make sure the domain name is entered correctly.
+              #%systemroot%\system32\inetsrv\appcmd.exe set config -section:system.applicationHost/sites "/[name='Contoso'].hsts.enabled:True" /commit:apphost
+              #%systemroot%\system32\inetsrv\appcmd.exe set config -section:system.applicationHost/sites "/[name='Contoso'].hsts.max-age:480" /commit:apphost
+              #%systemroot%\system32\inetsrv\appcmd.exe set config -section:system.applicationHost/sites "/[name='Contoso'].hsts.includeSubDomains:True" /commit:apphost
+              #%systemroot%\system32\inetsrv\appcmd.exe set config -section:system.applicationHost/sites "/[name='Contoso'].hsts.redirectHttpToHttps:True" /commit:apphost
+
+      tags:
+        - manual_check
+        - IIST-SV-000205
+        - SV-218827r561041_rule
+        - V-218827
+        - low
+    - name: "V-218827"
+      debug:
+        msg: 
+          "check if HSTS enabled by running the following curl command:
+          curl -I hostIPAddress
+          check for HTTP/2 200
+          ...
+          strict-transport-security: max-age=31536000; includeSubDomains; preload
+          ..."

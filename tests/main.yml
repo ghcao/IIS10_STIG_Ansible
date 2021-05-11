@@ -1,0 +1,5 @@
+---
+- name: IIS 10 STIG Windows Ansible Role
+  hosts: all
+  roles:
+    - role: '../../microsoft-iis-10-server-stig-hardening'

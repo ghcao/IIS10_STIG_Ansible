@@ -1,0 +1,29 @@
+---
+
+- name: Execute category 1 (high severity) tasks
+  import_tasks: cat1.yml
+  tags: 
+    - high
+
+- name: Execute category 2 (medium severity) tasks
+  import_tasks: cat2.yml
+  tags: 
+    - medium
+
+- name: Execute category 3 (low severity) tasks
+  import_tasks: cat3.yml
+  tags: 
+    - low
+
+
+# # SEE: https://serverfault.com/a/695798/514234
+# - name: Check Ansible version
+#   command: ansible --version
+#   register: ansibleVersion
+#   tags:
+#     - 
+#   #delegate_to: IPAddress
+
+# - name: Print version
+#   debug:
+#     msg: "Ansible Version: {{ ansibleVersion.stdout }}"

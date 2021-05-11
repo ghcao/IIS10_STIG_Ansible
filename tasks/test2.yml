@@ -1,0 +1,14 @@
+# #completed
+# - name: "MEDIUM | An IIS Server configured to be a SMTP relay must require authentication."
+#   debug:
+#     msg: "DocumentRule"
+#     msg: "Configure the relay server with a specific allowed IP address, from the same network as the relay, and implement TLS."
+#   tags:
+#     - manual_check
+#     - IIST-SV-000160
+#     - SV-228572r561041_rule
+#     - V-228572
+#     - medium
+# - name: "V-228572"
+#   debug:
+#     msg: "Interview the System Administrator about the role of the IIS 10.0 web server."

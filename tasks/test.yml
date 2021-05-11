@@ -1,0 +1,134 @@
+# ---
+# #completed
+# - name: test
+#   hosts: all
+#   tasks:
+#     - name: "High | Turn off DisabledByDefault for TLS 1.2"
+#       win_regedit:
+#         path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server
+#         name: DisabledByDefault
+#         type: dword
+#         data: 0
+#         state: present
+#     - name: "High | enable TLS 1.0 DisabledByDefault"
+#       win_regedit:
+#         path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+#         name: DisabledByDefault
+#         type: dword
+#         data: 1
+#         state: present
+#     - name: "High - Disable TLS 1.0 from server"
+#       win_regedit:
+#         path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+#         name: Enabled
+#         type: dword
+#         data: 0
+#         state: present
+
+# - name: test2
+#   hosts: all
+#   tasks:
+#     - name: "MEDIUM | 73"
+#       debug:
+#         msg: "73 comment"
+#       tags:
+#         - manual_check
+#         - IIST-SV-000160
+#         - SV-228572r561041_rule
+#         - V-228573
+#         - medium
+#     - name: "V-228573"
+#       debug:
+#         msg: "73"
+
+
+  # #review V-218821 loop
+  #   - name: "HIGH | An IIS 10.0 web server must maintain the confidentiality of controlled information during transmission through the use of an approved Transport Layer Security (TLS) version."
+  #     win_regedit:
+  #       path: "{{ control_A_reg_keys.path }}"
+  #       name: "{{ control_A_reg_keys.name }}"
+  #       dword: "{{ control_A_reg_keys.dword }}"
+
+  #       state: "{{ control_A_reg_keys.state }}"
+  #       data: "{{ control_A_reg_keys.data }}"
+  #     loop:
+  #       - 
+
+
+  #       tags:
+  #         - IIST-SV-000153
+  #         - SV-218821r561041_rule
+  #         - V-218821
+  #         - high
+  #   - name: "V-218821"
+  #       debug:
+  #         msg: "If any of the respective registry paths do not exist or are configured with the wrong value, this is a finding."
+
+
+# completed no loop cipher_check
+    # - name: "HIGH | An IIS 10.0 web server must maintain the confidentiality of controlled information during transmission through the use of an approved Transport Layer Security (TLS) version."
+    #   hosts: all
+    #   tasks:
+    #     - name: "Turn off DisabledByDefault for TLS 1.2"
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server
+    #           name: DisabledByDefault
+    #           type: dword
+    #           data: 0
+    #           state: present
+    #     - name: "Enable TLS 1.0 DisabledByDefault"
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+    #           name: DisabledByDefault
+    #           type: dword
+    #           data: 1
+    #           state: present
+    #     - name: "Disable TLS 1.0 from server"
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+    #           name: Enabled
+    #           type: dword
+    #           data: 0
+    #           state: present
+    #     - name: "Enable TLS 1.1 DisabledByDefault"
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+    #           name: DisabledByDefault
+    #           type: dword
+    #           data: 1
+    #           state: present
+    #     - name: "Disable TLS 1.1"
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+    #           name: Enabled
+    #           type: dword
+    #           data: 0
+    #           state: present
+    #     - name: "Enable DisabledByDefault for SSL 2.0"
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server
+    #           name: DisabledByDefault
+    #           type: dword
+    #           data: 1
+    #           state: present
+    #     - name: "Disable SSL 2.0"     
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server
+    #           name: Enabled
+    #           type: dword
+    #           data: 0
+    #           state: present
+    #     - name: "Enable DisabledByDefault for SSL 3.0" 
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+    #           name: DisabledByDefault
+    #           type: dword
+    #           data: 1
+    #           state: present
+    #     - name: "Disable SSL 3.0"
+    #       win_regedit:
+    #           path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+    #           name: Enabled
+    #           type: dword
+    #           data: 0
+    #           state: present
