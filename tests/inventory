@@ -4,6 +4,6 @@ w2019 ansible_host=172.16.151.3
 [all:vars]
 ansible_connection=winrm
 ansible_user=Administrator
-ansible_password="Y@hnao45"
+ansible_password="Password"
 ansible_winrm_transport=basic
 ansible_winrm_server_cert_validation=ignore
